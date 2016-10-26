@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>SleAP</title>
+
+    <link rel="stylesheet" href="./css/jquery.flipster.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
 <h1>Hello World!</h1>
-We are using node <script>document.write(process.versions.node)</script>,
-Chrome <script>document.write(process.versions.chrome)</script>,
-and Electron <script>document.write(process.versions.electron)</script>.
+
+<div class="text">
+    blablabla text
+</div>
+
+<!-->In Electron, this is the correct way to include jQuery<-->
+<script>window.$ = window.jQuery = require('./js/jquery.min.js');</script>
+<script src="./js/jquery.flipster.min.js"></script>
+<script src="./js/script.js"></script>
 </body>
+</html>
+
+</body>
+
 </html>
