@@ -5,6 +5,7 @@
 const {app, BrowserWindow} = require('electron')
 var https = require('https')
 
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -17,7 +18,7 @@ function createWindow () {
     win.loadURL(`file://${__dirname}/app/index.html`)
 
     // Open the DevTools.
-    //win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -28,9 +29,9 @@ function createWindow () {
 })
 }
 
-function getTracking(){
+/*function getTracking(){
 
-    var foo = '';
+    /*var foo = '';
    https.get('https://www.rescuetime.com/anapi/data?key=b63kycosejaunc0fr2uleftti_lgc2ypl9klmf_b&perspective=interval&interval=hour&restrict_begin=2016-10-26t10&restrict_end=2016-10-26&format=json'
        , function(res){
            response = res.statusCode;
@@ -45,8 +46,10 @@ function getTracking(){
                console.log(data);
            })
 
-       })
-}
+       })*/
+    //RescueTime.init();
+    //RescueTime.getTracking();
+//}
 
 
 // This method will be called when Electron has finished
@@ -54,9 +57,12 @@ function getTracking(){
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
     createWindow();
+    InitChart();
+
     console.log("hi");
     getTracking();
-    InitChart();
+
+
 })
 
 // Quit when all windows are closed.
