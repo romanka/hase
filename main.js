@@ -17,7 +17,7 @@ function createWindow () {
     win.loadURL(`file://${__dirname}/app/index.html`)
 
     // Open the DevTools.
-    //win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -55,8 +55,7 @@ function getTracking(){
 app.on('ready', () => {
     createWindow();
     console.log("hi");
-    getTracking();
-    InitChart();
+
 })
 
 // Quit when all windows are closed.
