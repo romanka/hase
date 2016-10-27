@@ -2,22 +2,26 @@
  * Created by Romi on 26.10.16.
  */
 
-/*function RescueTime() {}
+var path = require('path');
+var https = require('https');
+
+function RescueTime() {}
+
+
+
+var APIkey = ""
+var date = ""
+var data = ""
+var rescueTime_data = []
+
 
 RescueTime.init = function(){
     //if(user === 'Romi'){
     APIkey = "B63kYcoSejauNC0Fr2ULEfTTI_LGC2YPL9klMf_B"
-    perspective = "interval"
-    interval = "hour"
-    restrict = ""
-}
+    date = "2016-10-27"
+};
 
-var APIkey = ""
-var perspective = ""
-var interval = ""
-var restrict = ""*/
-
-getTracking = function(){
+RescueTime.getTracking = function(){
         /*$http({
          method: "GET",
          url: "https://www.rescuetime.com/anapi/data?key="&APIkey&"&perspective="&perspective&"&interval="&interval&"&restrict_begin="&restrict&"2016-10-26T10&restrict_end="&restrict&"2016-10-26&format=json"
@@ -25,28 +29,43 @@ getTracking = function(){
          var data = response
          })*/
 
-        console.log("hi2")
-        var APIkey = "B63kYcoSejauNC0Fr2ULEfTTI_LGC2YPL9klMf_B"
-        var perspective = "interval"
-        var interval = "hour"
-        var restrict = ""
+    console.log("hi2")
+    var url_begin = "https://www.rescuetime.com/anapi/data?key=";
+    var url_r_begin = "&format=json&perspective=interval&restrict_kind=productivity&interval=hour&restrict_begin=";
+    var url_r_end = "&restrict_end=";
 
-        var url = "https://www.rescuetime.com/anapi/data?key=" & APIkey & "&perspective=" & perspective & "&interval=" & interval & "&restrict_begin=" & restrict & "2016-10-26T10&restrict_end=" & restrict & "2016-10-26&format=json"
+    var url = url_begin.concat(APIkey).concat(url_r_begin).concat(date).concat(url_r_end);
 
         var foo = '';
-        https.get('https://www.rescuetime.com/anapi/data?key=b63kycosejaunc0fr2uleftti_lgc2ypl9klmf_b&perspective=interval&interval=hour&restrict_begin=2016-10-26t10&restrict_end=2016-10-26&format=json'
-            , function (res) {
-                response = res.statusCode;
-
-                console.log(res.statusCode);
-
+        var req = https.get(url, function (res) {
                 res.on('data', function (more) {
                     foo += more;
-                })
+                });
                 res.on('end', function () {
                     data = JSON.parse(foo).rows;
                     console.log(data);
-                })
+                    RescueTime.parseData();
 
-            })
-    }
+                });
+
+            });
+        req.on('error', function(err) {
+            console.log(err);
+    });
+};
+
+RescueTime.parseData = function(){
+        for (var i = 0; i < data.length; i++) {
+            rescueTime_data.push({
+                time: data[i][0],
+                value: data[i][1]
+            });
+        }
+        console.log(rescueTime_data);
+};
+
+// Add an event listeners
+window.onload = function() {
+    RescueTime.init();
+    RescueTime.getTracking();
+};

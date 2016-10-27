@@ -3,7 +3,7 @@
  */
 
 const {app, BrowserWindow} = require('electron')
-var https = require('https')
+
 
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -57,12 +57,7 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
     createWindow();
-    InitChart();
-
-    console.log("hi");
-    getTracking();
-
-
+    //InitChart();
 })
 
 // Quit when all windows are closed.
