@@ -1,6 +1,5 @@
 html{
-    background: #14243d;
-    background: radial-gradient(ellipse at center, #14243d 0%,#030611 100%);
+    background-color: #FEFCE8;
     position: absolute;
     top:0;
     left:0;
@@ -10,14 +9,13 @@ html{
 
 body{
     font: 14px/1.5 Arial, Helvetica, sans-serif;
-    color:#fff;
+    color:#000000;
 }
 
 a, a:visited, a:hover{
     color:#fff;
     text-decoration: none;
 }
-
 
 
 .axis path, .axis line
@@ -47,3 +45,53 @@ a, a:visited, a:hover{
     margin:0;
     padding:0;
 }
+
+
+#menu_box {
+    padding: 10px;
+    position: fixed;
+    left: 0px;
+    top: 4px;
+    width: 100px;
+    height: 550px;
+    background-color: #330033;
+    border-radius: 0px 15px 15px 0px;
+    color: #FEFCE8;
+}
+
+#upper_box {
+    position: fixed;
+    left: 150px;
+    top: 0;
+    padding: 10px 10px 10px 30px;
+    width: 650px;
+    height: 300px;
+}
+
+#lower_box {
+    padding: 10px 10px 10px 30px;
+    position: fixed;
+    left: 150px;
+    top: 300px;
+    width: 650px;
+    height: 300px;
+}
+
+#date_box {
+    /*box for the date and time*/
+}
+
+#profile {
+    width: 90px;
+    height: 90px;
+    position:fixed;
+    left: 13px;
+    top: 30px;
+    border-radius:50%;
+    border: 2px solid #cccccc;
+    background-image: url("https://pwrappsdps.blob.core.windows.net/media/powerapps.microsoft.com/en-us/documentation/articles/connection-github/20160610113414/githubicon.png");
+}
+
+
+
+
