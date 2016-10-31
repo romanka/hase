@@ -200,6 +200,12 @@ function saveSurvey(survey) {
 // Add an event listeners
 window.onload = function() {
     Surveys.init();
+
+    var Min = getMinutes();
+    var trig_in = (59 - Min + 1)*60000;
+    var hour = getHour();
+    var time = getTime()+trig_in;
+
     //TODO: Tigger of hourly surveys
     //surveyWindow_hour.show();
 
@@ -211,5 +217,7 @@ window.onload = function() {
 
     //Use onComplete event to save the data
     surveyWindow_hour.survey.onComplete.add(saveSurvey);
+    surveyWindow_morning.survey.onComplete.add(saveSurvey);
+    surveyWindow_evening.survey.onComplete.add(saveSurvey);
 
 };
