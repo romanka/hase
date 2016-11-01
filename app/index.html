@@ -31,6 +31,13 @@
         // async communication to app(=browser)
         const {ipcRenderer} = require('electron');
 
+        ipcRenderer.on('date-reply', (event, arg) => {
+            console.log(arg); // prints "tomorrow"
+        });
+
+
+        ipcRenderer.send('date-message', 'today');
+
     </script>
 
 </head>
@@ -48,6 +55,8 @@
 
     <div id="logo_box" align="center">
         <img src="../img/icon_small.png" alt="Logo" style="width:80px;height:80px;">
+
+        <!-- TODO: export to js file -->
         <p>Version
             <script type="text/javascript">
                 var fs = require('fs');
@@ -61,24 +70,21 @@
 <div class="content">
 
     <div id="date_box">
-        <script>
+        <div id="weekday"></div>
+        <div id="date"></div>
+        <div id="time"></div>
 
-            ipcRenderer.on('date-reply', (event, arg) => {
-                console.log(arg); // prints "tomorrow"
-            });
+        <br>Currently selected timeframe:
 
+        <!-- TODO: Timeframe selected -->
 
-            ipcRenderer.send('date-message', 'today');
-
-
-        </script>
+        <div id="timeframe"></div>
 
     </div>
 
     <div id="productivity_box">
 
     </div>
-
     <div id="activity_box">
 
     </div>

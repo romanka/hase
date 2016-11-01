@@ -82,8 +82,12 @@ div.content {
     left: 115px;
     top: 4px;
     border: 1px dashed #330033;
+    text-align: center;
 }
 
+#weekday {
+    font: 20px/2 Arial, Helvetica, sans-serif;
+}
 
 #productivity_box {
     position: fixed;
@@ -113,5 +117,6 @@ div.content {
     top: 300px;
     border: 1px dashed #330033;
 }
+
 
 
