@@ -18,39 +18,19 @@ a, a:visited, a:hover{
 }
 
 
-.axis path, .axis line
-{
-    fill: none;
-    stroke: #777;
-    shape-rendering: crispEdges;
-}
-
-.axis text
-{
-    font-family: 'Arial';
-    font-size: 13px;
-}
-.tick
-{
-    stroke-dasharray: 1, 2;
-}
-.bar
-{
-    fill: FireBrick;
-}
-
-.center {
-    text-align: center;
-}
-
 
 *{
     margin:0;
     padding:0;
 }
 
+/****************************************
 
-#menu_box {
+ // MENU
+
+****************************************/
+
+div.menu_box {
     position: fixed;
     left: 0px;
     top: 4px;
@@ -60,25 +40,6 @@ a, a:visited, a:hover{
     border-radius: 0px 15px 15px 0px;
     color: #FEFCE8;
 }
-
-#upper_box {
-    padding: 10px;
-    position: fixed;
-    left: 100px;
-    top: 0;
-    width: 900px;
-    height: 300px;
-}
-
-#lower_box {
-    padding: 10px;
-    position: fixed;
-    left: 100px;
-    top: 300px;
-    width: 900px;
-    height: 300px;
-}
-
 
 #profile {
     width: 100px;
@@ -99,5 +60,58 @@ a, a:visited, a:hover{
     font: 10px/1.5 Arial, Helvetica, sans-serif;
 }
 
+/****************************************
+
+ // CONTENT
+
+****************************************/
+
+div.content {
+    padding: 10px;
+    position: fixed;
+    left: 100px;
+    top: 0;
+    width: 900px;
+    height: 300px;
+}
+
+#date_box {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    left: 115px;
+    top: 4px;
+    border: 1px dashed #330033;
+}
+
+
+#sleep_box {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    left: 410px;
+    top: 4px;
+    border: 1px dashed #330033;
+}
+
+
+#activity_box {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    left: 705px;
+    top: 4px;
+    border: 1px dashed #330033;
+}
+
+
+#overall_chart {
+    position: fixed;
+    width: 870px;
+    height: 270px;
+    left: 115px;
+    top: 300px;
+    border: 1px dashed #330033;
+}
 
 
