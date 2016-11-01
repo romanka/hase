@@ -1,6 +1,5 @@
 html{
-    background: #14243d;
-    background: radial-gradient(ellipse at center, #14243d 0%,#030611 100%);
+    background-color: #FEFCE8;
     position: absolute;
     top:0;
     left:0;
@@ -10,7 +9,7 @@ html{
 
 body{
     font: 14px/1.5 Arial, Helvetica, sans-serif;
-    color:#fff;
+    color:#000000;
 }
 
 a, a:visited, a:hover{
@@ -20,30 +19,99 @@ a, a:visited, a:hover{
 
 
 
-.axis path, .axis line
-{
-    fill: none;
-    stroke: #777;
-    shape-rendering: crispEdges;
-}
-
-.axis text
-{
-    font-family: 'Arial';
-    font-size: 13px;
-}
-.tick
-{
-    stroke-dasharray: 1, 2;
-}
-.bar
-{
-    fill: FireBrick;
-}
-
-
-
 *{
     margin:0;
     padding:0;
 }
+
+/****************************************
+
+ // MENU
+
+****************************************/
+
+div.menu_box {
+    position: fixed;
+    left: 0px;
+    top: 4px;
+    width: 100px;
+    height: 570px;
+    background-color: #330033;
+    border-radius: 0px 15px 15px 0px;
+    color: #FEFCE8;
+}
+
+#profile {
+    width: 100px;
+    height: 100px;
+    position:fixed;
+    top: 20px;
+    font: 14px/1.5 Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color:#FEFCE8;
+}
+
+
+#logo_box {
+    position: fixed;
+    width: 100px;
+    bottom: 10px;
+    height: auto;
+    font: 10px/1.5 Arial, Helvetica, sans-serif;
+}
+
+/****************************************
+
+ // CONTENT
+
+****************************************/
+
+div.content {
+    padding: 10px;
+    position: fixed;
+    left: 100px;
+    top: 0;
+    width: 900px;
+    height: 300px;
+}
+
+#date_box {
+    position: fixed;
+    width: 140px;
+    height: 280px;
+    left: 115px;
+    top: 4px;
+    border: 1px dashed #330033;
+}
+
+
+#productivity_box {
+    position: fixed;
+    width: 350px;
+    height: 280px;
+    left: 270px;
+    top: 4px;
+    border: 1px dashed #330033;
+}
+
+
+#activity_box {
+    position: fixed;
+    width: 350px;
+    height: 280px;
+    left: 635px;
+    top: 4px;
+    border: 1px dashed #330033;
+}
+
+
+#overall_chart {
+    position: fixed;
+    width: 870px;
+    height: 270px;
+    left: 115px;
+    top: 300px;
+    border: 1px dashed #330033;
+}
+
+
