@@ -22,8 +22,7 @@ function createWindow () {
        console.log(arg); //prints 'today'
         //asynchronous:    event.sender.send('asynchronous-reply', 'value');
         //synchronous:    event.returnValue = 'value';
-
-        event.sender.send('date-reply', win.today);
+        event.sender.send('date-reply', 'today');
     });
 
     // Open the DevTools.
