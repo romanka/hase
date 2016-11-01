@@ -36,8 +36,7 @@ CurrentDate.setToday = function (){
     var time = hour + ":" + min;
 
     document.getElementById("weekday").innerHTML = weekday;
-    document.getElementById("date").innerHTML = date;
-    document.getElementById("time").innerHTML = time;
+    document.getElementById("date").innerHTML = date + " " + time;
 
 }
 

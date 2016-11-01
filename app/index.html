@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 
 
 <head>
@@ -29,6 +29,7 @@
 
     <script>
         // async communication to app(=browser)
+        // really needed?
         const {ipcRenderer} = require('electron');
 
         ipcRenderer.on('date-reply', (event, arg) => {
@@ -70,15 +71,14 @@
 <div class="content">
 
     <div id="date_box">
-        <div id="weekday"></div>
+        <span><div id="weekday"></div>
         <div id="date"></div>
-        <div id="time"></div>
 
         <br>Currently selected timeframe:
 
         <!-- TODO: Timeframe selected -->
 
-        <div id="timeframe"></div>
+        <div id="timeframe"></div></span>
 
     </div>
 

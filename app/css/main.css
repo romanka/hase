@@ -81,13 +81,27 @@ div.content {
     height: 280px;
     left: 115px;
     top: 4px;
-    border: 1px dashed #330033;
-    text-align: center;
+    display: table;
 }
 
-#weekday {
-    font: 20px/2 Arial, Helvetica, sans-serif;
+/* display: span with table / display: table-cell needed to correctly align vertical */
+
+#date_box span {
+    text-align: center;
+    vertical-align:middle;
+    display: table-cell;
+    font: 10px/2 Arial, Helvetica, sans-serif;
+
 }
+#weekday {
+    font: 24px/2 Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+#date {
+    font: 13px/2 Arial, Helvetica, sans-serif;
+}
+
 
 #productivity_box {
     position: fixed;
