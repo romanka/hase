@@ -22,14 +22,20 @@
     <script src="js/survey.ko.min.js"></script>
     <link href="css/survey.css" type="text/css" rel="stylesheet" />
     <script src="js/notifier.js"></script>
+    <script src="js/current_date.js"></script>
 
     <link rel="stylesheet" href="css/main.css">
     <link href="css/survey.css" type="text/css" rel="stylesheet" />
 
+    <script>
+        // async communication to app(=browser)
+        const {ipcRenderer} = require('electron');
 
+    </script>
 
 </head>
 <body>
+
 <div class="menu_box">
 
     <div id="profile" align="center">
@@ -55,10 +61,21 @@
 <div class="content">
 
     <div id="date_box">
+        <script>
+
+            ipcRenderer.on('date-reply', (event, arg) => {
+                console.log(arg); // prints "tomorrow"
+            });
+
+
+            ipcRenderer.send('date-message', 'today');
+
+
+        </script>
 
     </div>
 
-    <div id="sleep_box">
+    <div id="productivity_box">
 
     </div>
 

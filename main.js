@@ -2,9 +2,8 @@
  * Created by Romi on 26.10.16.
  */
 
-const {app, BrowserWindow} = require('electron')
-
-
+const {app, BrowserWindow} = require('electron');
+const {ipcMain} = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -15,10 +14,20 @@ function createWindow () {
     win = new BrowserWindow({width: 1000, height: 600, resizable: false})
 
     // and load the index.html of the app.
-    win.loadURL(`file://${__dirname}/app/index.html`)
+    win.loadURL(`file://${__dirname}/app/index.html`);
+
+    // communication channel with renderer process
+
+    ipcMain.on('date-message', (event, arg) => {
+       console.log(arg); //prints 'today'
+        //asynchronous:    event.sender.send('asynchronous-reply', 'value');
+        //synchronous:    event.returnValue = 'value';
+
+        event.sender.send('date-reply', win.today);
+    });
 
     // Open the DevTools.
-    //win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {
@@ -55,7 +64,7 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => {
+app.on('ready', function()  {
     createWindow();
 
 })
@@ -75,7 +84,6 @@ app.on('activate', () => {
     if (win === null) {
 
         createWindow();
-
     }
 })
 

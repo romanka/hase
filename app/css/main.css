@@ -77,7 +77,7 @@ div.content {
 
 #date_box {
     position: fixed;
-    width: 280px;
+    width: 140px;
     height: 280px;
     left: 115px;
     top: 4px;
@@ -85,11 +85,11 @@ div.content {
 }
 
 
-#sleep_box {
+#productivity_box {
     position: fixed;
-    width: 280px;
+    width: 350px;
     height: 280px;
-    left: 410px;
+    left: 270px;
     top: 4px;
     border: 1px dashed #330033;
 }
@@ -97,9 +97,9 @@ div.content {
 
 #activity_box {
     position: fixed;
-    width: 280px;
+    width: 350px;
     height: 280px;
-    left: 705px;
+    left: 635px;
     top: 4px;
     border: 1px dashed #330033;
 }
