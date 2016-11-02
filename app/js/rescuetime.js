@@ -83,10 +83,10 @@ RescueTime.parseData = function(){
     var time_others_productive= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     var time_others_unproductive= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     for (var i = 0; i < data.length; i++) {
-        var index = parseInt(timestamp.slice(11,13));
+        var index = parseInt(data[i][0].slice(11,13));
         if(Math.round(data[i][1]/hour_total[index]*100)>4){
             rescueTime_data_complex.push({
-                time: index.toString().concat(":00"),
+                time: index,
                 activity: data[i][3],
                 value: Math.round(data[i][1]/36),
                 productivity: (data[i][5]>1) ? ("1") : ("0")
@@ -106,8 +106,8 @@ RescueTime.parseData = function(){
         //push others productive
         if(time_others_productive[i]>0) {
             rescueTime_data_complex.push({
-                time: i.toString().concat(":00"),
-                activity: "other",
+                time: i,
+                activity: "other productive",
                 value: Math.round(time_others_productive[i] / hour_total[i] * 100).toString(),
                 productivity: "1"
             })
@@ -115,8 +115,8 @@ RescueTime.parseData = function(){
         //push others unproductive
         if(time_others_unproductive[i]>0) {
             rescueTime_data_complex.push({
-                time: i.toString().concat(":00"),
-                activity: "other",
+                time: i,
+                activity: "other unproductive",
                 value: Math.round(time_others_unproductive[i] / hour_total[i] * 100).toString(),
                 productivity: "0"
             })
@@ -130,4 +130,55 @@ RescueTime.parseData = function(){
             value: Math.round(hour_productive[i]/hour_total[i]*100).toString()
         });
     }
+
+
+
+    dataRTPieRenderer();
+    drawRTPieChart();
 };
+
+
+drawRTPieChart = function (){
+    jQuery.jqplot ('productivity_box', [chart_data],
+        {
+            seriesDefaults: {
+                // Make this a pie chart.
+                renderer: jQuery.jqplot.PieRenderer,
+                rendererOptions: {
+                    // Put data labels on the pie slices.
+                    // By default, labels show the percentage of the slice.
+                    showDataLabels: true
+                }
+            },
+            legend: { show:true, location: 'e' }
+        }
+    );
+}
+
+var chart_data = [];
+var timeframe;
+var time;
+
+dataRTPieRenderer = function () {
+    timeframe = '14:00';
+    time = 10;
+
+    chart_data = [];
+
+    rescueTime_data_complex.forEach(function(entry){
+        console.log(entry);
+        if (entry["time"] === time) {
+            
+            chart_data.push(
+                entry.activity,
+                entry.value
+            )
+        }
+    });
+
+    var unlogged = (3600-rescueTime_data_simple[time])/36;
+    chart_data.push(
+     'Unlogged',
+     unlogged
+    );
+}
