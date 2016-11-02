@@ -11,9 +11,12 @@
     <!--In Electron, this is the correct way to include jQuery-->
     <script>window.$ = window.jQuery = require('./js/jquery.min.js');</script>
 
-    <script src="js/jquery.jqplot.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
     <script src="js/survey.ko.min.js"></script>
+    <script src="js/jquery.jqplot.js"></script>
+    <script src="js/jqplot.pieRenderer.js"></script>
+
+
 
     <script src="js/rescuetime.js"></script>
     <script src="js/jawbone_activity.js"></script>
@@ -41,7 +44,6 @@
         ipcRenderer.send('date-message', 'today');
 
     </script>
-
 
 
 </head>
