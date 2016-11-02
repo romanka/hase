@@ -12,7 +12,8 @@ function Eventlistener() {}
 Eventlistener.init = function(){
     CurrentDate.init();
     Surveys.init();
-    Chart.init();
+    RescueTime.init();
+    //Chart.init();
 
     surveyWindow_hour.show();
     surveyWindow_hour.survey.onComplete.add(saveSurvey);
