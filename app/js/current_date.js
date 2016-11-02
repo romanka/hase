@@ -41,8 +41,3 @@ CurrentDate.setToday = function (){
 }
 
 
-// Add an event listeners
-window.onload = function() {
-    CurrentDate.init();
-};
-
