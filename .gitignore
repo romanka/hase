@@ -1,2 +1,8 @@
 
 .idea/workspace.xml
+
+*.md
+
+*.md
+
+node_modules/async/LICENSE

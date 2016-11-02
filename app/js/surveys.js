@@ -4,6 +4,8 @@
 
 var path = require('path');
 var https = require('https');
+var notifier = require('node-notifier');
+
 
 function Surveys() {}
 
@@ -190,24 +192,30 @@ Surveys.init = function(){
     surveyWindow_hour = new Survey.SurveyWindow(surveyJSON_hour);
     surveyWindow_morning = new Survey.SurveyWindow(surveyJSON_morning);
     surveyWindow_evening = new Survey.SurveyWindow(surveyJSON_evening);
+
+
 };
 
 function saveSurvey(survey) {
     var resultAsString = JSON.stringify(survey.data);
     console.log(resultAsString); //send Ajax request to your web server.
-};
+}
 
 // Add an event listeners
-window.onload = function() {
+window.onready = function() {
+
+    console.log("I was here!");
     Surveys.init();
 
-    var Min = getMinutes();
-    var trig_in = (59 - Min + 1)*60000;
-    var hour = getHour();
-    var time = getTime()+trig_in;
+
+
+    //var Min = getMinutes();
+    //var trig_in = (59 - Min + 1)*60000;
+    //var hour = getHour();
+    //var time = getTime()+trig_in;
 
     //TODO: Tigger of hourly surveys
-    //surveyWindow_hour.show();
+    surveyWindow_hour.show();
 
     //TODO: Trigger of evening surveys
     //surveyWindow_evening.show();
