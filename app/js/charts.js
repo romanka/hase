@@ -6,6 +6,7 @@ var path = require('path');
 var chart_data = [];
 var timeframe;
 var time;
+var test_data = [['bla', 30, ], ['blubb', 30], ['hmmh', 10], ['haha', 30]];
 
 function Chart() {}
 
@@ -15,31 +16,28 @@ Chart.init = function(){
 };
 
 Chart.drawChart = function (){
-    jQuery.jqplot ('productivity_box', [chart_data],
+    $.jqplot ('productivity_box', [test_data],
         {
             seriesDefaults: {
                 // Make this a pie chart.
-                renderer: jQuery.jqplot.PieRenderer,
+                renderer: $.jqplot.PieRenderer,
                 rendererOptions: {
                     // Put data labels on the pie slices.
                     // By default, labels show the percentage of the slice.
-                    showDataLabels: true
+                    showDataLabels: true,
                 }
             },
-            legend: { show:true, location: 'e' }
+            legend: { show:false, location: 'e' },
+            grid: {background: '#FEFCE8', drawBorder: false, shadow: false}
         }
     );
 }
 
 Chart.dataRenderer = function () {
+
     timeframe = '14:00';
     time = 14;
 
-    console.log("rescue time");
-
-    console.log(rescueTime_data_complex.length);
-
-    chart_data = [];
 
     $.each(rescueTime_data_complex, function (i) {
         console.log("test");
