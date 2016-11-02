@@ -16,12 +16,16 @@ var rescueTime_data_simple = []     // time, value
 var rescueTime_data_complex = []    // time, activity, value, productivity
 var hour_total = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 var hour_productive = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+var finished = false;
 
 
 RescueTime.init = function(){
     //if(user === 'Romi'){
     APIkey = "B63kYcoSejauNC0Fr2ULEfTTI_LGC2YPL9klMf_B"
     date = "2016-10-27"
+
+    RescueTime.getTracking();
+
 };
 
 RescueTime.getTracking = function(){
@@ -32,7 +36,6 @@ RescueTime.getTracking = function(){
          var data = response
          })*/
 
-    console.log("hi2")
     var url_begin = "https://www.rescuetime.com/anapi/data?key=";
     var url_r_begin = "&format=json&perspective=interval&interval=hour&restrict_begin=";
     var url_r_end = "&restrict_end=";
@@ -46,15 +49,15 @@ RescueTime.getTracking = function(){
                 });
                 res.on('end', function () {
                     data = JSON.parse(foo).rows;
-                    console.log(JSON.parse(foo).row_headers);
                     RescueTime.parseData();
-
+                    finished = true;
                 });
 
             });
         req.on('error', function(err) {
             console.log(err);
     });
+
 };
 
 /*  Data Format
@@ -85,7 +88,7 @@ RescueTime.parseData = function(){
             rescueTime_data_complex.push({
                 time: index.toString().concat(":00"),
                 activity: data[i][3],
-                value: Math.round(data[i][1]/hour_total[index]*100).toString(),
+                value: Math.round(data[i][1]/36),
                 productivity: (data[i][5]>1) ? ("1") : ("0")
             })
         } else {
@@ -127,10 +130,4 @@ RescueTime.parseData = function(){
             value: Math.round(hour_productive[i]/hour_total[i]*100).toString()
         });
     }
-};
-
-// Add an event listeners
-window.onload = function() {
-    RescueTime.init();
-    RescueTime.getTracking();
 };

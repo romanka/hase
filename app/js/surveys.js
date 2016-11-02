@@ -201,6 +201,7 @@ function saveSurvey(survey) {
     console.log(resultAsString); //send Ajax request to your web server.
 }
 
+/*
 // Add an event listeners
 window.onready = function() {
 
@@ -228,4 +229,4 @@ window.onready = function() {
     surveyWindow_morning.survey.onComplete.add(saveSurvey);
     surveyWindow_evening.survey.onComplete.add(saveSurvey);
 
-};
+};*/
