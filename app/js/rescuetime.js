@@ -140,21 +140,18 @@ RescueTime.parseData = function(){
 
 
 drawRTPieChart = function (){
-    $.jqplot ('productivity_box', [chart_data],
-        {
-            seriesDefaults: {
-                // Make this a pie chart.
-                renderer: $.jqplot.PieRenderer,
-                rendererOptions: {
-                    // Put data labels on the pie slices.
-                    // By default, labels show the percentage of the slice.
-                    showDataLabels: true
-                }
-            },
-            legend: { show:true, location: 'e' },
-            grid: {background: '#FEFCE8', drawBorder: false, shadow: false}
-        }
-    );
+    var options = {
+        title: 'Productivity',
+        pieHole: 0.4,
+        legend: 'none',
+        tooltip: {isHtml: true},
+
+    }
+
+    var data = google.visualization.arrayToDataTable(chart_data);
+    var chart = new google.visualization.PieChart(document.getElementById('productivity_box'));
+    chart.draw(data, options);
+
 }
 
 var chart_data = [];
@@ -167,10 +164,14 @@ dataRTPieRenderer = function () {
 
     chart_data = [];
 
+    chart_data.push([
+        'Task', 'Time'
+    ]);
+
     rescueTime_data_complex.forEach(function(entry){
         if (entry["time"] === time) {
 
-            var act = "'".concat(entry.activity.toString()).concat("'");
+            var act = entry.activity.toString();
             chart_data.push([
                 act,
                 parseInt(entry.value)]
