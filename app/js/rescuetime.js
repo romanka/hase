@@ -40,7 +40,7 @@ RescueTime.getTracking = function(){
     var url_r_begin = "&format=json&perspective=interval&interval=hour&restrict_begin=";
     var url_r_end = "&restrict_end=";
 
-    var url = url_begin.concat(APIkey).concat(url_r_begin).concat(date).concat(url_r_end);
+    var url = url_begin.concat(APIkey).concat(url_r_begin).concat(date).concat(url_r_end).concat(date);
 
         var foo = '';
         var req = https.get(url, function (res) {
@@ -71,9 +71,9 @@ RescueTime.getTracking = function(){
 RescueTime.parseData = function(){
     for (var i = 0; i < data.length; i++) {
         var timestamp = data[i][0];
+        
         var index = parseInt(timestamp.slice(11,13));
         hour_total[index] += data[i][1];
-
         if(data[i][5]===1 || data[i][5]===2){
             hour_productive[index] += data[i][1];
         }
@@ -84,12 +84,12 @@ RescueTime.parseData = function(){
     var time_others_unproductive= [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     for (var i = 0; i < data.length; i++) {
         var index = parseInt(data[i][0].slice(11,13));
-        if(Math.round(data[i][1]/hour_total[index]*100)>4){
+        if(Math.round(data[i][1]/60)>1){
             rescueTime_data_complex.push({
                 time: index,
                 activity: data[i][3],
-                value: Math.round(data[i][1]/36),
-                productivity: (data[i][5]>1) ? ("1") : ("0")
+                value: Math.round(data[i][1]/60),
+                productivity: (data[i][5]>1) ? (1) : (0)
             })
         } else {
             if(data[i][5]===1 || data[i][5]===2){
@@ -108,7 +108,7 @@ RescueTime.parseData = function(){
             rescueTime_data_complex.push({
                 time: i,
                 activity: "other productive",
-                value: Math.round(time_others_productive[i] / hour_total[i] * 100).toString(),
+                value: Math.round(time_others_productive[i] / 60),
                 productivity: "1"
             })
         }
@@ -117,7 +117,7 @@ RescueTime.parseData = function(){
             rescueTime_data_complex.push({
                 time: i,
                 activity: "other unproductive",
-                value: Math.round(time_others_unproductive[i] / hour_total[i] * 100).toString(),
+                value: Math.round(time_others_unproductive[i] / 60),
                 productivity: "0"
             })
         }
@@ -163,7 +163,7 @@ var time;
 
 dataRTPieRenderer = function () {
     timeframe = '14:00';
-    time = 10;
+    time = 14;
 
     chart_data = [];
 
@@ -178,9 +178,11 @@ dataRTPieRenderer = function () {
         }
     });
 
-    /*var unlogged = (3600-rescueTime_data_simple["time"])/36;
+    
+    var unlogged = (3600-hour_total[time])/60;
+    console.log(unlogged);
     chart_data.push([
      'Unlogged',
      unlogged
-    ]);*/
+    ]);
 }
