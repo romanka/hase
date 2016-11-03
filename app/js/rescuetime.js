@@ -106,7 +106,7 @@ RescueTime.parseData = function(){
                 time: i,
                 activity: "other productive",
                 value: Math.round(time_others_productive[i] / 60),
-                productivity: "1"
+                productivity: 1
             })
         }
         //push others unproductive
@@ -115,7 +115,7 @@ RescueTime.parseData = function(){
                 time: i,
                 activity: "other unproductive",
                 value: Math.round(time_others_unproductive[i] / 60),
-                productivity: "0"
+                productivity: 0
             })
         }
     }
@@ -157,7 +157,7 @@ drawRTPieChart = function (){
 }
 
 dataRTPieRenderer = function () {
-    time = 14;
+    time = 9;
 
     chart_data = new google.visualization.DataTable();
     chart_data.addColumn('string', 'Task');
@@ -167,19 +167,42 @@ dataRTPieRenderer = function () {
     var count_productive=0;
     var count_unproductive=0;
 
+    rescueTime_data_complex.sort(function(a,b){
+        if (parseInt(a.value) > parseInt(b.value)) {
+            return 1;
+        }
+        if (parseInt(a.value) < parseInt(b.value)) {
+            return -1;
+        }
+        return 0;
+    });
+
+/*
+    rescueTime_data_complex.sort(function(a,b){
+        if (a.productivity > b.productivity) {
+            return 1;
+        }
+        if (a.productivity < b.productivity) {
+            return -1;
+        }
+        return 0;
+    });*/
+
+    console.log(rescueTime_data_complex);
+
     rescueTime_data_complex.forEach(function(entry){
         if (entry["time"] === time) {
             var act = entry.activity.toString();
             var value = parseInt(entry.value);
             chart_data.addRow([act, value, act]);
 
-            if(entry.productivity === 1){
-                chart_colors.push(rgbToHex(18/255,121/255,35/255,(255-(count_productive*40))/255));
+            if(parseInt(entry.productivity) > 0){
+                chart_colors.push(rgbToHex(18/255,121/255,35/255,(255-(count_productive*30))/255));
                 count_productive++;
             }
             else
             {
-                chart_colors.push(rgbToHex(180/255,29/255,29/255,(255-(count_unproductive*40))/255));
+                chart_colors.push(rgbToHex(180/255,29/255,29/255,(255-(count_unproductive*30))/255));
                 count_unproductive++;
             }
         }
@@ -188,6 +211,8 @@ dataRTPieRenderer = function () {
    var unlogged = (3600-hour_total[time])/60;
     chart_data.addRow(['Unlogged', unlogged, 'Unlogged Time']);
     chart_colors.push('#8B8378');
+
+
 }
 
 function rgbToHex(r, g, b, a) {
