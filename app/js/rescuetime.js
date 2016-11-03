@@ -5,9 +5,11 @@
 var path = require('path');
 var https = require('https');
 
+var chart_data;
+var time;
+var chart_colors = [];
+
 function RescueTime() {}
-
-
 
 var APIkey = ""
 var date = ""
@@ -25,7 +27,6 @@ RescueTime.init = function(){
     date = "2016-10-27"
 
     RescueTime.getTracking();
-
 };
 
 RescueTime.getTracking = function(){
@@ -52,12 +53,10 @@ RescueTime.getTracking = function(){
                     RescueTime.parseData();
                     finished = true;
                 });
-
             });
         req.on('error', function(err) {
             console.log(err);
     });
-
 };
 
 /*  Data Format
@@ -97,9 +96,7 @@ RescueTime.parseData = function(){
             } else {
                 time_others_unproductive[index] += data[i][1];
             }
-
         }
-
     }
 
     for (var i = 0; i < hour_total.length; i++) {
@@ -131,10 +128,7 @@ RescueTime.parseData = function(){
         });
     }
 
-
-
     dataRTPieRenderer();
-    console.log(chart_data.toString());
     drawRTPieChart();
 };
 
@@ -142,68 +136,58 @@ RescueTime.parseData = function(){
 drawRTPieChart = function (){
     var options = {
         title: 'Productivity',
+        titleTextStlye: {
+            fontSize: 14,
+            bold: true,
+        },
+        pieSliceText: 'percentage',
         pieHole: 0.4,
         legend: 'none',
-        tooltip: {isHtml: true},
+        tooltip: {isHtml: true, ignoreBounds: true},
+        allowHtml: true,
+        backgroundColor: '#FEFCE8',
+        chartArea: {left: 10, top: 10, width: '90%', height: '90%'},
+        width: 350,
+        height:280,
         colors: chart_colors
-
     }
 
-    var data = google.visualization.arrayToDataTable(chart_data);
     var chart = new google.visualization.PieChart(document.getElementById('productivity_box'));
-    chart.draw(data, options);
-
+    chart.draw(chart_data, options);
 }
-
-var chart_data = [];
-var chart_colors = [];
-var timeframe;
-var time;
 
 dataRTPieRenderer = function () {
     time = 14;
-    chart_data = [];
 
-    chart_data.push([
-        'Task', 'Time'
-    ]);
+    chart_data = new google.visualization.DataTable();
+    chart_data.addColumn('string', 'Task');
+    chart_data.addColumn('number', 'minutes');
+    chart_data.addColumn({type: 'string', role:'tooltip'}); //custom tooltip
 
     var count_productive=0;
     var count_unproductive=0;
 
     rescueTime_data_complex.forEach(function(entry){
         if (entry["time"] === time) {
-
             var act = entry.activity.toString();
-            chart_data.push([
-                act,
-                parseInt(entry.value)]
-            )
+            var value = parseInt(entry.value);
+            chart_data.addRow([act, value, act]);
 
             if(entry.productivity === 1){
                 chart_colors.push(rgbToHex(18/255,121/255,35/255,(255-(count_productive*40))/255));
                 count_productive++;
-
             }
             else
             {
                 chart_colors.push(rgbToHex(180/255,29/255,29/255,(255-(count_unproductive*40))/255));
                 count_unproductive++;
-
             }
-
         }
     });
 
-    
-    var unlogged = (3600-hour_total[time])/60;
-    chart_data.push([
-     'Unlogged',
-     unlogged
-    ]);
+   var unlogged = (3600-hour_total[time])/60;
+    chart_data.addRow(['Unlogged', unlogged, 'Unlogged Time']);
     chart_colors.push('#8B8378');
-    
-    console.log(chart_colors);
 }
 
 function rgbToHex(r, g, b, a) {
