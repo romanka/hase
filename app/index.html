@@ -39,7 +39,6 @@
             console.log(arg); // prints "tomorrow"
         });
 
-
         ipcRenderer.send('date-message', 'today');
 
     </script>
@@ -50,12 +49,22 @@
 
 <div class="menu_box">
 
+    <div id="date_box">
+        <span><div id="weekday"></div>
+        <div id="date"></div>
+   </span>
+    </div>
+
     <div id="profile" align="center">
         <!--TODO: dynamically assign user picture-->
         <!--TODO: dynamically get username-->
         <img src="https://pwrappsdps.blob.core.windows.net/media/powerapps.microsoft.com/en-us/documentation/articles/connection-github/20160610113414/githubicon.png" alt="userpic" style="width:80px;height:80px; border-radius: 50%; border: 2px solid #FEFCE8;">
-        <p>username</p>
+        <p>Hello, </p>
+        <p id="username_tag"></p>
 
+    </div>
+
+    <div id="timeframe">
     </div>
 
     <div id="logo_box" align="center">
@@ -73,25 +82,14 @@
 </div>
 
 <div class="content">
-
-    <div id="date_box">
-        <span><div id="weekday"></div>
-        <div id="date"></div>
-
-        <br>Currently selected timeframe:
-
-        <!-- TODO: Timeframe selected -->
-
-        <div id="timeframe"></div></span>
-
-    </div>
-
     <div id="productivity_box">
 
     </div>
     <div id="activity_box">
 
     </div>
+
+    <div id="middle_box"></div>
 
     <div id="overall_chart">
 

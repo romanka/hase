@@ -13,7 +13,8 @@ Eventlistener.init = function(){
     CurrentDate.init();
     Surveys.init();
     RescueTime.init();
-    //Chart.init();
+
+    document.getElementById('username_tag').innerHTML = "blabla!";
 
     surveyWindow_hour.show();
     surveyWindow_hour.survey.onComplete.add(saveSurvey);

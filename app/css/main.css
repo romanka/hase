@@ -41,15 +41,45 @@ div.menu_box {
     color: #FEFCE8;
 }
 
+
+/* display: span with table / display: table-cell needed to correctly align vertical */
+
+#date_box {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    left: 0px;
+    top: 10px;
+    display: table;
+}
+
+
+#weekday {
+    font: 15px/2 Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+#date {
+    font: 13px/2 Arial, Helvetica, sans-serif;
+}
+
 #profile {
     width: 100px;
     height: 100px;
     position:fixed;
-    top: 20px;
+    top: 120px;
     font: 14px/1.5 Arial, Helvetica, sans-serif;
     font-weight: bold;
     color:#FEFCE8;
 }
+
+#date_box span {
+    text-align: center;
+    vertical-align:middle;
+    display: table-cell;
+    font: 10px/2 Arial, Helvetica, sans-serif;
+}
+
 
 
 #logo_box {
@@ -75,41 +105,26 @@ div.content {
     height: 300px;
 }
 
-#date_box {
-    position: fixed;
-    width: 140px;
-    height: 280px;
-    left: 115px;
-    top: 4px;
-    display: table;
-}
-
-/* display: span with table / display: table-cell needed to correctly align vertical */
-
-#date_box span {
-    text-align: center;
-    vertical-align:middle;
-    display: table-cell;
-    font: 10px/2 Arial, Helvetica, sans-serif;
-
-}
-#weekday {
-    font: 24px/2 Arial, Helvetica, sans-serif;
-    font-weight: bold;
-}
-
-#date {
-    font: 13px/2 Arial, Helvetica, sans-serif;
-}
-
-
 #productivity_box {
     position: fixed;
     width: 350px;
     height: 280px;
-    left: 270px;
+    left: 115px;
     top: 4px;
-    border: 1px dashed #330033;
+}
+
+
+#timeframe {
+    position: fixed;
+    top: 220px;
+    width: 100px;
+}
+
+#timeframe span {
+    text-align: center;
+    vertical-align:middle;
+    display: table-cell;
+    font: 10px/2 Arial, Helvetica, sans-serif;
 }
 
 
@@ -122,7 +137,6 @@ div.content {
     border: 1px dashed #330033;
 }
 
-
 #overall_chart {
     position: fixed;
     width: 870px;
@@ -132,6 +146,24 @@ div.content {
     border: 1px dashed #330033;
 }
 
+.google-visualization-tooltip {
+    position:fixed !important;
+    top:240px !important;
+    left:480px !important;
+    width: 140px;
+    background-color:  transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font: 15px/2 Arial, Helvetica, sans-serif; !important;
+    font-weight: bold;
+    text-align: center;
+}
 
-
-
+#middle_box {
+    position: fixed;
+    width: 140px;
+    height: 280px;
+    left: 480px;
+    top: 4px;
+    border: 1px dashed #330033;
+}
