@@ -5,6 +5,11 @@
 var path = require('path');
 var https = require('https');
 
+var chart_data;
+var timeframe;
+var time;
+
+
 function RescueTime() {}
 
 
@@ -134,7 +139,6 @@ RescueTime.parseData = function(){
 
 
     dataRTPieRenderer();
-    console.log(chart_data.toString());
     drawRTPieChart();
 };
 
@@ -142,48 +146,49 @@ RescueTime.parseData = function(){
 drawRTPieChart = function (){
     var options = {
         title: 'Productivity',
+        titleTextStlye: {
+            fontSize: 14,
+            bold: true,
+        },
+        pieSliceText: 'percentage',
         pieHole: 0.4,
         legend: 'none',
-        tooltip: {isHtml: true},
-
+        tooltip: {isHtml: true, ignoreBounds: true},
+        allowHtml: true,
+        backgroundColor: '#FEFCE8',
+        chartArea: {left: 10, top: 10, width: '90%', height: '90%'},
+        width: 350,
+        height:280
     }
 
-    var data = google.visualization.arrayToDataTable(chart_data);
+
     var chart = new google.visualization.PieChart(document.getElementById('productivity_box'));
-    chart.draw(data, options);
+    chart.draw(chart_data, options);
 
 }
-
-var chart_data = [];
-var timeframe;
-var time;
 
 dataRTPieRenderer = function () {
     timeframe = '14:00';
     time = 14;
 
-    chart_data = [];
+   chart_data = new google.visualization.DataTable();
 
-    chart_data.push([
-        'Task', 'Time'
-    ]);
+
+    chart_data.addColumn('string', 'Task');
+    chart_data.addColumn('number', 'minutes');
+
+    //custom tooltip
+    chart_data.addColumn({type: 'string', role:'tooltip'});
 
     rescueTime_data_complex.forEach(function(entry){
         if (entry["time"] === time) {
-
             var act = entry.activity.toString();
-            chart_data.push([
-                act,
-                parseInt(entry.value)]
-            )
+            var value = parseInt(entry.value);
+            chart_data.addRow([act, value, act])
         }
     });
 
-    
-    var unlogged = (3600-hour_total[time])/60;
-    console.log(unlogged);
-    chart_data.push([
-     'Unlogged',
-     unlogged
-    ]);
+   var unlogged = (3600-hour_total[time])/60;
+    chart_data.addRow(['Unlogged', unlogged, 'Unlogged Time']);
+
 }
