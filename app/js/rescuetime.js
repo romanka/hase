@@ -126,7 +126,7 @@ RescueTime.parseData = function(){
     //rescueTime Data in simple data format for bar chart
     for (var i = 0; i < hour_total.length; i++) {
         rescueTime_data_simple.push({
-            time: i.toString().concat(":00"),
+            time: i,
             value: Math.round(hour_productive[i]/hour_total[i]*100).toString()
         });
     }
@@ -134,23 +134,25 @@ RescueTime.parseData = function(){
 
 
     dataRTPieRenderer();
+    console.log(chart_data.toString());
     drawRTPieChart();
 };
 
 
 drawRTPieChart = function (){
-    jQuery.jqplot ('productivity_box', [chart_data],
+    $.jqplot ('productivity_box', [chart_data],
         {
             seriesDefaults: {
                 // Make this a pie chart.
-                renderer: jQuery.jqplot.PieRenderer,
+                renderer: $.jqplot.PieRenderer,
                 rendererOptions: {
                     // Put data labels on the pie slices.
                     // By default, labels show the percentage of the slice.
                     showDataLabels: true
                 }
             },
-            legend: { show:true, location: 'e' }
+            legend: { show:true, location: 'e' },
+            grid: {background: '#FEFCE8', drawBorder: false, shadow: false}
         }
     );
 }
@@ -166,19 +168,19 @@ dataRTPieRenderer = function () {
     chart_data = [];
 
     rescueTime_data_complex.forEach(function(entry){
-        console.log(entry);
         if (entry["time"] === time) {
-            
-            chart_data.push(
-                entry.activity,
-                entry.value
+
+            var act = "'".concat(entry.activity.toString()).concat("'");
+            chart_data.push([
+                act,
+                parseInt(entry.value)]
             )
         }
     });
 
-    var unlogged = (3600-rescueTime_data_simple[time])/36;
-    chart_data.push(
+    /*var unlogged = (3600-rescueTime_data_simple["time"])/36;
+    chart_data.push([
      'Unlogged',
      unlogged
-    );
+    ]);*/
 }
