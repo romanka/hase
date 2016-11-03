@@ -145,6 +145,7 @@ drawRTPieChart = function (){
         pieHole: 0.4,
         legend: 'none',
         tooltip: {isHtml: true},
+        colors: chart_colors
 
     }
 
@@ -155,18 +156,20 @@ drawRTPieChart = function (){
 }
 
 var chart_data = [];
+var chart_colors = [];
 var timeframe;
 var time;
 
 dataRTPieRenderer = function () {
-    timeframe = '14:00';
     time = 14;
-
     chart_data = [];
 
     chart_data.push([
         'Task', 'Time'
     ]);
+
+    var count_productive=0;
+    var count_unproductive=0;
 
     rescueTime_data_complex.forEach(function(entry){
         if (entry["time"] === time) {
@@ -176,14 +179,41 @@ dataRTPieRenderer = function () {
                 act,
                 parseInt(entry.value)]
             )
+
+            if(entry.productivity === 1){
+                chart_colors.push(rgbToHex(18/255,121/255,35/255,(255-(count_productive*40))/255));
+                count_productive++;
+
+            }
+            else
+            {
+                chart_colors.push(rgbToHex(180/255,29/255,29/255,(255-(count_unproductive*40))/255));
+                count_unproductive++;
+
+            }
+
         }
     });
 
     
     var unlogged = (3600-hour_total[time])/60;
-    console.log(unlogged);
     chart_data.push([
      'Unlogged',
      unlogged
     ]);
+    chart_colors.push('#8B8378');
+    
+    console.log(chart_colors);
+}
+
+function rgbToHex(r, g, b, a) {
+    var nr = Math.round(((1-a)+(a*r))*255);
+    var ng = Math.round(((1-a)+(a*g))*255);
+    var nb = Math.round(((1-a)+(a*b))*255);
+    return "#" + componentToHex((nr>255?255:nr)) + componentToHex((ng>255?255:ng)) + componentToHex((nb>255?255:nb));
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
 }
