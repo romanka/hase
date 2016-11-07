@@ -23,7 +23,7 @@ CurrentDate.setToday = function (){
     var weekday = days[current_date.getDay()];
 
     //date
-    var day = ('0'+current_date.getDay()).slice(-2);
+    var day = ('0'+current_date.getDate()).slice(-2);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var month = months[current_date.getMonth()];
