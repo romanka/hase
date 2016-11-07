@@ -14,7 +14,7 @@ Eventlistener.init = function(){
     Surveys.init();
     RescueTime.init();
 
-    document.getElementById('username_tag').innerHTML = "blabla!";
+    document.getElementById('username_tag').innerHTML = "Romana!";
 
     surveyWindow_hour.show();
     surveyWindow_hour.survey.onComplete.add(saveSurvey);

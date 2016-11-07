@@ -22,9 +22,17 @@ var finished = false;
 
 
 RescueTime.init = function(){
+
+    var current_date = new Date();
+    var day = ('0' + (current_date.getDay()-1)).slice(-2);
+    var month = current_date.getMonth() +1;
+    var year = current_date.getFullYear();
+
     //if(user === 'Romi'){
     APIkey = "B63kYcoSejauNC0Fr2ULEfTTI_LGC2YPL9klMf_B"
-    date = "2016-10-27"
+    date = year + "-" + month + "-" + day;
+
+    console.log(date);
 
     RescueTime.getTracking();
 };
@@ -157,7 +165,7 @@ drawRTPieChart = function (){
 }
 
 dataRTPieRenderer = function () {
-    time = 9;
+    time = 14;
 
     chart_data = new google.visualization.DataTable();
     chart_data.addColumn('string', 'Task');
