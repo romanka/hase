@@ -111,8 +111,28 @@ div.content {
     height: 280px;
     left: 115px;
     top: 4px;
+    z-index: 1;
+
 }
 
+#productivity_text{
+    z-index: 2;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: fixed;
+    left: 233px;
+    top: 90px;
+    display: table;
+}
+
+#productivity_text span{
+    font: 25px/1.5 Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    vertical-align:middle;
+    display: table-cell;
+}
 
 #timeframe {
     position: fixed;
