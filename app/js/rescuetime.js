@@ -9,8 +9,6 @@ var chart_data;
 var time;
 var chart_colors = [];
 
-function RescueTime() {}
-
 var APIkey = ""
 var date = ""
 var data = ""
@@ -19,7 +17,9 @@ var rescueTime_data_complex = []    // time, activity, value, productivity
 var hour_total = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 var hour_productive = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 var finished = false;
+var percentageProductive=0;
 
+function RescueTime() {}
 
 RescueTime.init = function(){
 
@@ -45,6 +45,7 @@ RescueTime.init = function(){
     RescueTime.getTracking();
 };
 
+//HTTPS Call to RescueTime Data API to receive data
 RescueTime.getTracking = function(){
         /*$http({
          method: "GET",
@@ -115,6 +116,7 @@ RescueTime.parseData = function(){
         }
     }
 
+    //rescueTime Data in comoplex data format for pie chart other productive and unproductive
     for (var i = 0; i < hour_total.length; i++) {
         //push others productive
         if(time_others_productive[i]>0) {
@@ -148,20 +150,21 @@ RescueTime.parseData = function(){
     drawRTPieChart();
 };
 
-
+//Draw RescueTime Pie Chart
 drawRTPieChart = function (){
     var options = {
         title: 'Productivity',
         titleTextStlye: {
             fontSize: 14,
             bold: true,
+            color: 'black'
         },
         pieSliceText: 'percentage',
         pieHole: 0.4,
         legend: 'none',
         tooltip: {isHtml: true, ignoreBounds: true},
         allowHtml: true,
-        backgroundColor: '#FEFCE8',
+        backgroundColor: 'transparent',
         chartArea: {left: 10, top: 10, width: '90%', height: '90%'},
         width: 350,
         height:280,
@@ -170,8 +173,10 @@ drawRTPieChart = function (){
 
     var chart = new google.visualization.PieChart(document.getElementById('productivity_box'));
     chart.draw(chart_data, options);
+    document.getElementById('productivity_span').innerHTML = calculatePercentageProductive();
 }
 
+//Generate RescueTime Data to show in Pie Chart
 dataRTPieRenderer = function () {
 
     chart_data = new google.visualization.DataTable();
@@ -183,53 +188,59 @@ dataRTPieRenderer = function () {
     var count_unproductive=0;
 
     rescueTime_data_complex.sort(function(a,b){
-        if (parseInt(a.value) > parseInt(b.value)) {
+        if (parseInt(a.value) < parseInt(b.value)) {
             return 1;
         }
-        if (parseInt(a.value) < parseInt(b.value)) {
+        if (parseInt(a.value) > parseInt(b.value)) {
             return -1;
         }
         return 0;
     });
 
-/*
-    rescueTime_data_complex.sort(function(a,b){
-        if (a.productivity > b.productivity) {
-            return 1;
-        }
-        if (a.productivity < b.productivity) {
-            return -1;
-        }
-        return 0;
-    });*/
-
     console.log(rescueTime_data_complex);
 
+    //add productive activities
     rescueTime_data_complex.forEach(function(entry){
         if (entry["time"] === time) {
-            var act = entry.activity.toString();
-            var value = parseInt(entry.value);
-            chart_data.addRow([act, value, act]);
-
             if(parseInt(entry.productivity) > 0){
+                var act = entry.activity.toString();
+                var value = parseInt(entry.value);
+                chart_data.addRow([act, value, act]);
                 chart_colors.push(rgbToHex(18/255,121/255,35/255,(255-(count_productive*30))/255));
                 count_productive++;
             }
-            else
-            {
+        }
+    });
+
+    //add unproductive activities
+    rescueTime_data_complex.forEach(function(entry){
+        if (entry["time"] === time) {
+            if(parseInt(entry.productivity) < 1){
+                var act = entry.activity.toString();
+                var value = parseInt(entry.value);
+                chart_data.addRow([act, value, act]);
                 chart_colors.push(rgbToHex(180/255,29/255,29/255,(255-(count_unproductive*30))/255));
                 count_unproductive++;
             }
         }
     });
 
-   var unlogged = (3600-hour_total[time])/60;
+    //add unlogged time
+    var unlogged = (3600-hour_total[time])/60;
     chart_data.addRow(['Unlogged', unlogged, 'Unlogged Time']);
     chart_colors.push('#8B8378');
 
 
 }
 
+//Percentatge of productiveness
+function calculatePercentageProductive(){
+    return (Math.round(parseInt(hour_productive[time])/36)).toString().concat("%");
+};
+
+/**
+ *  Functions for color calculations
+ **/
 function rgbToHex(r, g, b, a) {
     var nr = Math.round(((1-a)+(a*r))*255);
     var ng = Math.round(((1-a)+(a*g))*255);
