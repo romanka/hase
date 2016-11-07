@@ -16,8 +16,6 @@ Eventlistener.init = function(){
 
     document.getElementById('username_tag').innerHTML = "Romana!";
 
-    surveyWindow_hour.show();
-    surveyWindow_hour.survey.onComplete.add(saveSurvey);
 };
 
 

@@ -29,8 +29,10 @@ RescueTime.init = function(){
     var year = current_date.getFullYear();
 
     //correct date & time assignment
-    //time =  current_date.getHours()-1; //get last hour not current hour
-    //date = year + "-" + month + "-" + day;
+    /*
+    time =  current_date.getHours()-1; //get last hour not current hour
+    date = year + "-" + month + "-" + day;
+   */
 
     //for testing:
     var yesterday = ('0' + (current_date.getDate()-1)).slice(-2);
